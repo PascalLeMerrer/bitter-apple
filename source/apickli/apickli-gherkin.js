@@ -2,6 +2,10 @@
 'use strict';
 module.exports = function() {
 
+	var printResponse = function(self) {
+		process.stdout.write('      but real value is\n' + self.apickli.getRealValue() + '\n');
+	}
+
 	this.Given(/^I set (.*) header to (.*)$/, function(headerName, headerValue, callback) {
 		this.apickli.addRequestHeader(headerName, headerValue);
 		callback();
@@ -92,14 +96,14 @@ module.exports = function() {
 			callback();
 		} else {
 			callback.fail('response header ' + header + ' does not exists in response');
-			console.log('      response header are ' + JSON.stringify(this.apickli.getRealValue()))
+			printResponse(this);
 		}
 	});
 
 	this.Then(/^response header (.*) should not exist$/, function(header, callback) {
 		if (this.apickli.assertResponseContainsHeader(header)) {
 			callback.fail('response header ' + header + ' exists in response');
-			console.log('      response headers are ' + JSON.stringify(this.apickli.getRealValue()))
+			printResponse(this);
 		} else {
 			callback();
 		}
@@ -110,7 +114,7 @@ module.exports = function() {
 			callback();
 		} else {
 			callback.fail('response body is not valid ' + contentType);
-			console.log('      response body is \n' + this.apickli.getRealValue())
+			printResponse(this);
 		}
 	});
 
@@ -118,15 +122,15 @@ module.exports = function() {
 		if (this.apickli.assertResponseCode(responseCode)) {
 			callback();
 		} else {
-			callback.fail('response code is not ' + responseCode);
-			console.log('      response is \n' + JSON.stringify(this.apickli.getRealValue()))
+			callback.fail('response code should be ' + responseCode);
+			printResponse(this);
 		}
 	});
 
 	this.Then(/^response code should not be (\d+)$/, function(responseCode, callback) {
 		if (this.apickli.assertResponseCode(responseCode)) {
 			callback.fail('response code should not be ' + responseCode);
-			console.log('      response code is \n' + JSON.stringify(this.apickli.getRealValue()))
+			printResponse(this);
 		} else {
 			callback();
 		}
@@ -137,14 +141,14 @@ module.exports = function() {
 			callback();
 		} else {
 			callback.fail('response header ' + header +' should be ' + expression);
-			console.log('      response header ' + header + ' is ' + this.apickli.getRealValue())
+			printResponse(this);
 		}
 	});
 
 	this.Then(/^response header (.*) should not be (.*)$/, function(header, expression, callback) {
 		if (this.apickli.assertHeaderValue(header, expression)) {
 			callback.fail('response header ' + header + ' should be ' + expression);
-			console.log('      response header ' + header + ' is ' + this.apickli.getRealValue())
+			printResponse(this);
 		} else {
 			callback();
 		}
@@ -156,7 +160,7 @@ module.exports = function() {
 		}
 		else {
 			callback.fail('reponse body should contain ' + expression);
-			console.log('      response body is\n' + this.apickli.getRealValue())
+			printResponse(this);
 		}
 	});
 
@@ -165,9 +169,8 @@ module.exports = function() {
 			callback();
 		}
 		else {
-			var realValue = this.apickli.getRealValue();
 			callback.fail('reponse body should not contain ' + expression);
-			console.log('      response body is\n' + realValue);
+			printResponse(this);
 		}
 	});
 
@@ -177,7 +180,7 @@ module.exports = function() {
 		}
 		else {
 			callback.fail('response body should be \n' + expression);
-		  console.log('      response body is\n' + this.apickli.getRealValue());
+		  printResponse(this);
 		}
 	});
 
@@ -186,14 +189,14 @@ module.exports = function() {
 			callback();
 		} else {
 			callback.fail('response body path ' + path + ' should be ' + value);
-		  console.log('      response body is\n' + this.apickli.getRealValue());
+		  printResponse(this);
 		}
 	});
 
 	this.Then(/^response body path (.*) should not be (.*)$/, function(path, value, callback) {
 		if (this.apickli.assertPathInResponseBodyMatchesExpression(path, value)) {
 			callback.fail('response body path ' + path + ' should not be ' + value);
-		  console.log('      response body is\n' + this.apickli.getRealValue());
+		  printResponse(this);
 		} else {
 			callback();
 		}
@@ -234,7 +237,7 @@ module.exports = function() {
 			callback();
 		} else {
 			callback.fail('value of scenario variable ' + variableName + ' should be ' + variableValue);
-			console.log('      value of scenario variable ' + variableName + ' is ' + this.apickli.getRealValue());
+			printResponse(this);
 		}
 	});
 
@@ -243,7 +246,8 @@ module.exports = function() {
 			callback();
 		} else {
 			callback.fail('value of global variable ' + variableName + ' should be ' + variableValue);
-			console.log('      value of global variable ' + variableName + ' is ' + this.apickli.getRealValue());
+			printResponse(this);
 		}
 	});
+
 };
