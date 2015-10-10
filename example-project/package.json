@@ -12,6 +12,6 @@
     "gulp-cucumber": "^0.0.9"
   },
   "devDependencies": {
-    "apickli": "^1.0.0"
+    "bitterapple": "^1.0.0"
   }
 }

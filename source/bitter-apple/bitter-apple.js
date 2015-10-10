@@ -12,7 +12,7 @@ var globalVariables = {};
 
 var ATTRIBUTE = 2;
 
-function Apickli(scheme, domain) {
+function BitterApple(scheme, domain) {
 	this.domain = scheme + '://' + domain;
 	this.headers = {};
 	this.httpResponse = {};
@@ -24,31 +24,31 @@ function Apickli(scheme, domain) {
 /**
  * Provides the value that was compared to the expected one
  */
-Apickli.prototype.getRealValue = function() {
+BitterApple.prototype.getRealValue = function() {
 	return this.realValue;
 };
 
-Apickli.prototype.addRequestHeader = function(name, value) {
+BitterApple.prototype.addRequestHeader = function(name, value) {
 	this.headers[name] = value;
 };
 
-Apickli.prototype.addRequestHeaderFromScenarioVariable = function(name, variable) {
+BitterApple.prototype.addRequestHeaderFromScenarioVariable = function(name, variable) {
 	this.headers[name] = this.scenarioVariables(variable);
 };
 
-Apickli.prototype.addRequestHeaderFromGlobalVariable = function(name, variable) {
+BitterApple.prototype.addRequestHeaderFromGlobalVariable = function(name, variable) {
 	this.headers[name] = globalVariables(variable);
 };
 
-Apickli.prototype.getResponseObject = function() {
+BitterApple.prototype.getResponseObject = function() {
 	return this.httpResponse;
 };
 
-Apickli.prototype.setRequestBody = function(body) {
+BitterApple.prototype.setRequestBody = function(body) {
 	this.requestBody = body;
 };
 
-Apickli.prototype.pipeFileContentsToRequestBody = function(file, callback) {
+BitterApple.prototype.pipeFileContentsToRequestBody = function(file, callback) {
 	var self = this;
 	fs.readFile(file, 'utf8', function(err, data) {
 		if (err) {
@@ -60,7 +60,7 @@ Apickli.prototype.pipeFileContentsToRequestBody = function(file, callback) {
 	});
 };
 
-Apickli.prototype.get = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.get = function(resource, callback) { // callback(error, response)
 	resource = replaceVariables(resource, this.scenarioVariables);
 	var self = this;
 	request.get({
@@ -77,7 +77,7 @@ Apickli.prototype.get = function(resource, callback) { // callback(error, respon
 	});
 };
 
-Apickli.prototype.post = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.post = function(resource, callback) { // callback(error, response)
 	resource = replaceVariables(resource, this.scenarioVariables);
 	var self = this;
 	request({
@@ -96,7 +96,7 @@ Apickli.prototype.post = function(resource, callback) { // callback(error, respo
 	});
 };
 
-Apickli.prototype.put = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.put = function(resource, callback) { // callback(error, response)
 	resource = replaceVariables(resource, this.scenarioVariables);
 	var self = this;
 	request({
@@ -115,7 +115,7 @@ Apickli.prototype.put = function(resource, callback) { // callback(error, respon
 	});
 };
 
-Apickli.prototype.delete = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.delete = function(resource, callback) { // callback(error, response)
 	resource = replaceVariables(resource, this.scenarioVariables);
 	var self = this;
 	request({
@@ -134,7 +134,7 @@ Apickli.prototype.delete = function(resource, callback) { // callback(error, res
 	});
 };
 
-Apickli.prototype.patch = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.patch = function(resource, callback) { // callback(error, response)
 	resource = replaceVariables(resource, this.scenarioVariables);
 	var self = this;
 	request({
@@ -153,17 +153,17 @@ Apickli.prototype.patch = function(resource, callback) { // callback(error, resp
 	});
 };
 
-Apickli.prototype.addHttpBasicAuthorizationHeader = function(username, password) {
+BitterApple.prototype.addHttpBasicAuthorizationHeader = function(username, password) {
 	var b64EncodedValue = base64Encode(username + ':' + password);
 	this.addRequestHeader('Authorization', 'Basic ' + b64EncodedValue);
 };
 
-Apickli.prototype.assertResponseCode = function(responseCode) {
+BitterApple.prototype.assertResponseCode = function(responseCode) {
 	this.realValue = this.getResponseObject();
 	return (this.getResponseObject().statusCode == responseCode);
 };
 
-Apickli.prototype.assertResponseContainsHeader = function(header, callback) {
+BitterApple.prototype.assertResponseContainsHeader = function(header, callback) {
 	this.realValue = this.getResponseObject().headers;
 	if (this.getResponseObject().headers[header.toLowerCase()]) {
 		return true;
@@ -172,13 +172,13 @@ Apickli.prototype.assertResponseContainsHeader = function(header, callback) {
 	}
 };
 
-Apickli.prototype.assertHeaderValue = function (header, expression) {
+BitterApple.prototype.assertHeaderValue = function (header, expression) {
 	this.realValue = this.getResponseObject().headers[header.toLowerCase()];
 	var regex = new RegExp(expression);
 	return (regex.test(this.realValue));
 };
 
-Apickli.prototype.assertPathInResponseBodyMatchesExpression = function(path, regexp) {
+BitterApple.prototype.assertPathInResponseBodyMatchesExpression = function(path, regexp) {
 	var regExpObject = new RegExp(regexp);
 	this.realValue = this.getResponseObject().body;
 	try {
@@ -190,74 +190,74 @@ Apickli.prototype.assertPathInResponseBodyMatchesExpression = function(path, reg
 	}
 };
 
-Apickli.prototype.assertResponseBodyIsJSON = function(expression) {
+BitterApple.prototype.assertResponseBodyIsJSON = function(expression) {
 	var real = JSON.parse(this.getResponseObject().body).json;
 	this.realValue = JSON.stringify(real, null, 2);
 	return areEqual(real, JSON.parse(expression));
 };
 
-Apickli.prototype.assertResponseBodyContainsExpression = function(expression) {
+BitterApple.prototype.assertResponseBodyContainsExpression = function(expression) {
 	var regex = new RegExp(expression);
 	this.realValue = this.getResponseObject().body;
 	return (regex.test(this.realValue));
 };
 
-Apickli.prototype.assertResponseBodyContentType = function(contentType) {
+BitterApple.prototype.assertResponseBodyContentType = function(contentType) {
 	this.realValue = this.getResponseObject().body;
 	return (getContentType(this.realValue) === contentType);
 };
 
-Apickli.prototype.evaluatePathInResponseBody = function(path) {
+BitterApple.prototype.evaluatePathInResponseBody = function(path) {
 	return evaluatePath(path, this.getResponseObject().body);
 };
 
-Apickli.prototype.setAccessTokenFromResponseBodyPath = function(path) {
+BitterApple.prototype.setAccessTokenFromResponseBodyPath = function(path) {
 	accessToken = evaluatePath(path, this.getResponseObject().body);
 };
 
-Apickli.prototype.setBearerToken = function() {
+BitterApple.prototype.setBearerToken = function() {
 	this.addRequestHeader('Authorization', 'Bearer ' + accessToken);
 };
 
-Apickli.prototype.storeValueOfHeaderInScenarioScope = function(header, variableName) {
+BitterApple.prototype.storeValueOfHeaderInScenarioScope = function(header, variableName) {
 	var value = this.getResponseObject().headers[header.toLowerCase()];
 	this.scenarioVariables[variableName] = value;
 };
 
-Apickli.prototype.storeValueOfResponseBodyPathInScenarioScope = function(path, variableName) {
+BitterApple.prototype.storeValueOfResponseBodyPathInScenarioScope = function(path, variableName) {
 	var value = evaluatePath(path, this.getResponseObject().body);
 	this.scenarioVariables[variableName] = value;
 };
 
-Apickli.prototype.assertScenarioVariableValue = function(variable, value) {
+BitterApple.prototype.assertScenarioVariableValue = function(variable, value) {
 	this.realValue = String(this.scenarioVariables[variable]);
 	return (this.realValue === value);
 };
 
-Apickli.prototype.assertGlobalVariableValue = function(variable, value) {
+BitterApple.prototype.assertGlobalVariableValue = function(variable, value) {
 	this.realValue = String(globalVariables[variable]);
 	return (this.realValue === value);
 };
 
-Apickli.prototype.storeValueOfHeaderInGlobalScope = function(headerName, variableName) {
+BitterApple.prototype.storeValueOfHeaderInGlobalScope = function(headerName, variableName) {
 	var value = this.getResponseObject().headers[headerName.toLowerCase()];
 	this.setGlobalVariable(variableName, value);
 };
 
-Apickli.prototype.storeValueOfResponseBodyPathInGlobalScope = function(path, variableName) {
+BitterApple.prototype.storeValueOfResponseBodyPathInGlobalScope = function(path, variableName) {
 	var value = evaluatePath(path, this.getResponseObject().body);
 	this.setGlobalVariable(variableName, value);
 };
 
-Apickli.prototype.setGlobalVariable = function(name, value) {
+BitterApple.prototype.setGlobalVariable = function(name, value) {
 	globalVariables[name] = value;
 };
 
-Apickli.prototype.getGlobalVariable = function(name) {
+BitterApple.prototype.getGlobalVariable = function(name) {
 	return globalVariables[name];
 };
 
-exports.Apickli = Apickli;
+exports.BitterApple = BitterApple;
 
 
 /**
@@ -358,4 +358,4 @@ var areEqual = function(real, expected) {
 	      // Objects and Arrays must be tested recursively
 	  }
 		return true;
-}
+};

@@ -1,12 +1,12 @@
 {
-  "name": "apickli",
-  "version": "1.2.0",
-  "description": "Collection of utility functions and a gherkin framework for REST API integration testing based on cucumber.js",
-  "main": "apickli.js",
+  "name": "bitter-apple",
+  "version": "1.0.0",
+  "description": "Collection of utility functions and a gherkin framework for WEB API integration testing based on cucumber.js",
+  "main": "bitter-apple.js",
   "readme": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/apickli/apickli.git"
+    "url": "https://github.com/PascalLeMerrer/bitter-apple.git"
   },
   "keywords": [
     "cucumber.js",
@@ -17,7 +17,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/apickli/apickli/blob/master/LICENSE"
+      "url": "https://github.com/PascalLeMerrer/bitter-apple/blob/master/LICENSE"
     }
   ],
   "dependencies": {
