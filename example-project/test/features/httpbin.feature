@@ -87,6 +87,13 @@ Feature:
 		When I GET /get
 		Then response body path $.headers.Authorization should be Bearer token123
 
+	Scenario: Access token retrieval from header
+		Given I GET /get
+		And I store the value of header Content-Type as access token
+		When I GET /get
+		Then response body path $.headers.Authorization should be Bearer application/json
+
+
 	Scenario: Quota testing - first request
 		Given I set X-Quota-Remaining header to 10
 		When I GET /get

@@ -207,6 +207,11 @@ module.exports = function() {
 		callback();
 	});
 
+	this.Then(/^I store the value of header (.*) as access token$/, function(header, callback) {
+		this.bitterapple.setAccessTokenFromHeader(header);
+		callback();
+	});
+
 	this.When(/^I set bearer token$/, function(callback) {
 		this.bitterapple.setBearerToken();
 		callback();
