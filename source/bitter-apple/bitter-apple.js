@@ -160,7 +160,7 @@ BitterApple.prototype.addHttpBasicAuthorizationHeader = function(username, passw
 };
 
 BitterApple.prototype.assertResponseCode = function(responseCode) {
-  this.realValue = this.getResponseObject();
+  this.realValue = this.getResponseObject().statusCode;
   return (this.getResponseObject().statusCode == responseCode);
 };
 
