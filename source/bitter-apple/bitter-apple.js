@@ -33,11 +33,11 @@ BitterApple.prototype.addRequestHeader = function(name, value) {
 };
 
 BitterApple.prototype.addRequestHeaderFromScenarioVariable = function(name, variable) {
-  this.headers[name] = this.scenarioVariables(variable);
+  this.headers[name] = this.scenarioVariables[variable];
 };
 
 BitterApple.prototype.addRequestHeaderFromGlobalVariable = function(name, variable) {
-  this.headers[name] = globalVariables(variable);
+  this.headers[name] = globalVariables[variable];
 };
 
 BitterApple.prototype.getResponseObject = function() {
@@ -225,7 +225,7 @@ BitterApple.prototype.setBearerToken = function() {
 };
 
 BitterApple.prototype.storeValueOfHeaderInScenarioScope = function(header, variableName) {
-  var value = this.getResponseObject().headers[header.toLowerCase()];
+  var value = this.getResponseObject().headers[header.toLowerCase()][0];
   this.scenarioVariables[variableName] = value;
 };
 
