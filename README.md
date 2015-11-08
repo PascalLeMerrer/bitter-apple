@@ -22,6 +22,7 @@ It adds the following features to Apickli:
 - a clearer way to describe the expected JSON response
 - setting request header to a global variable value
 - using scenario and/or global variables in requests
+- testing global variable value
 
 ## How to start - a simple tutorial
 
@@ -241,6 +242,8 @@ GIVEN:
 	I pipe contents of file (.*) to body
 	I have basic authentication credentials (.*) and (.*)
 	I set bearer token
+  I set (.*) header to scenario variable (.*)
+  I set (.*) header to global variable (.*)
 
 WHEN:
 	I GET $resource
@@ -261,11 +264,14 @@ THEN:
 	response body path (.*) should be (.*)
 	response body path (.*) should not be (.*)
 	I store the value of body path (.*) as access token
+  I store the value of header (.*) as access token
 	I store the value of response header (.*) as (.*) in scenario scope
 	I store the value of body path (.*) as (.*) in scenario scope
 	value of scenario variable (.*) should be (.*)
+  value of global variable (.*) should be (.*)
 	I store the value of response header (.*) as (.*) in global scope
 	I store the value of body path (.*) as (.*) in global scope
+  the JSON should be
 ```
 
 The simplest way to adopt these expressions is to create a symlink from node_modules/bitterapple/bitterapple-gherkin.js to features/step_definitions/bitterapple-gherkin.js
