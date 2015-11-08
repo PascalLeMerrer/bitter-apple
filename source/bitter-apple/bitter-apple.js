@@ -225,7 +225,7 @@ BitterApple.prototype.setBearerToken = function() {
 };
 
 BitterApple.prototype.storeValueOfHeaderInScenarioScope = function(header, variableName) {
-  var value = this.getResponseObject().headers[header.toLowerCase()][0];
+  var value = this.getResponseObject().headers[header.toLowerCase()];
   this.scenarioVariables[variableName] = value;
 };
 
