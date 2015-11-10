@@ -12,14 +12,47 @@ Feature:
 		When I POST to /post
 		Then response body should contain hello-world
 
+	Scenario: Setting body payload in POST request
+		When I POST to /post with body
+		"""
+		{"key":"hello-world"}
+		"""
+		Then response body should contain hello-world
+
 	Scenario: Setting body payload in PUT request
 		Given I set body to {"key":"hello-world"}
 		When I PUT /put
 		Then response body should contain hello-world
 
+	Scenario: Setting body payload in PUT request
+		When I PUT /put with body
+		"""
+		{"key":"hello-world"}
+		"""
+		Then response body should contain hello-world
+
+	Scenario: Setting body payload in PATCH request
+		Given I set body to {"key":"hello-world"}
+		When I PATCH /patch
+		Then response body should contain hello-world
+
+	Scenario: Setting body payload in PATCH request
+		When I PATCH /patch with body
+		"""
+		{"key":"hello-world"}
+		"""
+		Then response body should contain hello-world
+
 	Scenario: Setting body payload in DELETE request
 		Given I set body to {"key":"hello-world"}
 		When I DELETE /delete
+		Then response body should contain hello-world
+
+	Scenario: Setting body payload in DELETE request
+		When I DELETE /delete with body
+		"""
+		{"key":"hello-world"}
+		"""
 		Then response body should contain hello-world
 
 	Scenario: Setting body payload from file

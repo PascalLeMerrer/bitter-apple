@@ -56,12 +56,33 @@ module.exports = function() {
 			if (error) {
 				callback.fail(error);
 			}
+			callback();
+		});
+	});
+
+	this.When('I POST to $resource with body', function(resource, bodyValue, callback) {
+		this.bitterapple.setRequestBody(bodyValue);
+		this.bitterapple.post(resource, function(error, response) {
+			if (error) {
+				callback.fail(error);
+			}
 
 			callback();
 		});
 	});
 
 	this.When('I PUT $resource', function(resource, callback) {
+		this.bitterapple.put(resource, function(error, response) {
+			if (error) {
+				callback.fail(error);
+			}
+
+			callback();
+		});
+	});
+
+	this.When('I PUT $resource with body', function(resource, bodyValue, callback) {
+		this.bitterapple.setRequestBody(bodyValue);
 		this.bitterapple.put(resource, function(error, response) {
 			if (error) {
 				callback.fail(error);
@@ -81,7 +102,29 @@ module.exports = function() {
 		});
 	});
 
+	this.When('I DELETE $resource with body', function(resource, bodyValue, callback) {
+		this.bitterapple.setRequestBody(bodyValue);
+		this.bitterapple.delete(resource, function(error, response) {
+			if (error) {
+				callback.fail(error);
+			}
+
+			callback();
+		});
+	});
+
 	this.When('I PATCH $resource', function(resource, callback) {
+		this.bitterapple.patch(resource, function(error, response) {
+			if (error) {
+				callback.fail(error);
+			}
+
+			callback();
+		});
+	});
+
+	this.When('I PATCH $resource with body', function(resource, bodyValue, callback) {
+		this.bitterapple.setRequestBody(bodyValue);
 		this.bitterapple.patch(resource, function(error, response) {
 			if (error) {
 				callback.fail(error);
