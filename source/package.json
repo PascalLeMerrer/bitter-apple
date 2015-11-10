@@ -1,6 +1,6 @@
 {
   "name": "bitter-apple",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Collection of utility functions and a gherkin framework for WEB API integration testing based on cucumber.js",
   "main": "bitter-apple.js",
   "readme": "README.md",
