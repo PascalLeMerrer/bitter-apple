@@ -2,10 +2,6 @@
 'use strict';
 module.exports = function() {
 
-	var printResponse = function(self) {
-		process.stdout.write('      but real value is\n' + self.bitterapple.getRealValue() + '\n');
-	};
-
 	this.Given(/^I set (.*) header to (.*)$/, function(headerName, headerValue, callback) {
 		this.bitterapple.addRequestHeader(headerName, headerValue);
 		callback();
@@ -29,9 +25,8 @@ module.exports = function() {
 	this.Given(/^I pipe contents of file (.*) to body$/, function(file, callback) {
 		this.bitterapple.pipeFileContentsToRequestBody(file, function(error) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -44,9 +39,8 @@ module.exports = function() {
 	this.When(/^I GET (.*)$/, function(resource, callback) {
 		this.bitterapple.get(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -54,7 +48,7 @@ module.exports = function() {
 	this.When('I POST to $resource', function(resource, callback) {
 		this.bitterapple.post(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
 			callback();
 		});
@@ -64,9 +58,8 @@ module.exports = function() {
 		this.bitterapple.setRequestBody(bodyValue);
 		this.bitterapple.post(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -74,9 +67,8 @@ module.exports = function() {
 	this.When('I PUT $resource', function(resource, callback) {
 		this.bitterapple.put(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -85,9 +77,8 @@ module.exports = function() {
 		this.bitterapple.setRequestBody(bodyValue);
 		this.bitterapple.put(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -95,9 +86,8 @@ module.exports = function() {
 	this.When('I DELETE $resource', function(resource, callback) {
 		this.bitterapple.delete(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -106,9 +96,8 @@ module.exports = function() {
 		this.bitterapple.setRequestBody(bodyValue);
 		this.bitterapple.delete(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -116,9 +105,8 @@ module.exports = function() {
 	this.When('I PATCH $resource', function(resource, callback) {
 		this.bitterapple.patch(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -127,9 +115,8 @@ module.exports = function() {
 		this.bitterapple.setRequestBody(bodyValue);
 		this.bitterapple.patch(resource, function(error, response) {
 			if (error) {
-				callback.fail(error);
+				callback(error);
 			}
-
 			callback();
 		});
 	});
@@ -138,15 +125,13 @@ module.exports = function() {
 		if (this.bitterapple.assertResponseContainsHeader(header)) {
 			callback();
 		} else {
-			callback.fail('response header ' + header + ' does not exists in response');
-			printResponse(this);
+			callback(new Error('response header are ' + this.bitterapple.getRealValue()));
 		}
 	});
 
 	this.Then(/^response header (.*) should not exist$/, function(header, callback) {
 		if (this.bitterapple.assertResponseContainsHeader(header)) {
-			callback.fail('response header ' + header + ' exists in response');
-			printResponse(this);
+			callback(new Error('response header are ' + this.bitterapple.getRealValue()));
 		} else {
 			callback();
 		}
@@ -156,8 +141,7 @@ module.exports = function() {
 		if (this.bitterapple.assertResponseBodyContentType(contentType)) {
 			callback();
 		} else {
-			callback.fail('response body is not valid ' + contentType);
-			printResponse(this);
+			callback(new Error('response body is ' + this.bitterapple.getRealValue()));
 		}
 	});
 
@@ -165,15 +149,13 @@ module.exports = function() {
 		if (this.bitterapple.assertResponseCode(responseCode)) {
 			callback();
 		} else {
-			callback.fail('response code should be ' + responseCode);
-			printResponse(this);
+			callback(new Error('response code is ' + this.bitterapple.getRealValue()));
 		}
 	});
 
 	this.Then(/^response code should not be (\d+)$/, function(responseCode, callback) {
 		if (this.bitterapple.assertResponseCode(responseCode)) {
-			callback.fail('response code should not be ' + responseCode);
-			printResponse(this);
+			callback(new Error('response code is ' + this.bitterapple.getRealValue()));
 		} else {
 			callback();
 		}
@@ -183,15 +165,13 @@ module.exports = function() {
 		if (this.bitterapple.assertHeaderValue(header, expression)) {
 			callback();
 		} else {
-			callback.fail('response header ' + header +' should be ' + expression);
-			printResponse(this);
+			callback(new Error('response header ' + header + ' is '+ this.bitterapple.getRealValue()));
 		}
 	});
 
 	this.Then(/^response header (.*) should not be (.*)$/, function(header, expression, callback) {
 		if (this.bitterapple.assertHeaderValue(header, expression)) {
-			callback.fail('response header ' + header + ' should be ' + expression);
-			printResponse(this);
+			callback(new Error('response header ' + header + ' is '+ this.bitterapple.getRealValue()));
 		} else {
 			callback();
 		}
@@ -202,8 +182,7 @@ module.exports = function() {
 			callback();
 		}
 		else {
-			callback.fail('reponse body should contain ' + expression);
-			printResponse(this);
+			callback(new Error('response body is ' + this.bitterapple.getRealValue()));
 		}
 	});
 
@@ -212,8 +191,7 @@ module.exports = function() {
 			callback();
 		}
 		else {
-			callback.fail('reponse body should not contain ' + expression);
-			printResponse(this);
+			callback(new Error('response body is ' + this.bitterapple.getRealValue()));
 		}
 	});
 
@@ -222,8 +200,7 @@ module.exports = function() {
 			callback();
 		}
 		else {
-			callback.fail('response body should be \n' + expression);
-		  printResponse(this);
+			callback(new Error('response body is ' + this.bitterapple.getRealValue()));
 		}
 	});
 
@@ -231,15 +208,13 @@ module.exports = function() {
 		if (this.bitterapple.assertPathInResponseBodyMatchesExpression(path, value)) {
 			callback();
 		} else {
-			callback.fail('response body path ' + path + ' should be ' + value);
-		  printResponse(this);
+			callback(new Error('response is ' + this.bitterapple.getRealValue()));
 		}
 	});
 
 	this.Then(/^response body path (.*) should not be (.*)$/, function(path, value, callback) {
 		if (this.bitterapple.assertPathInResponseBodyMatchesExpression(path, value)) {
-			callback.fail('response body path ' + path + ' should not be ' + value);
-		  printResponse(this);
+			callback(new Error('response is ' + this.bitterapple.getRealValue()));
 		} else {
 			callback();
 		}
@@ -284,8 +259,7 @@ module.exports = function() {
 		if (this.bitterapple.assertScenarioVariableValue(variableName, variableValue)) {
 			callback();
 		} else {
-			callback.fail('value of scenario variable ' + variableName + ' should be ' + variableValue);
-			printResponse(this);
+			callback(new Error('value of scenario variable ' + variableName + ' is ' + this.bitterapple.getRealValue()));
 		}
 	});
 
@@ -293,8 +267,7 @@ module.exports = function() {
 		if (this.bitterapple.assertGlobalVariableValue(variableName, variableValue)) {
 			callback();
 		} else {
-			callback.fail('value of global variable ' + variableName + ' should be ' + variableValue);
-			printResponse(this);
+			callback(new Error('value of global variable ' + variableName + ' is ' + this.bitterapple.getRealValue()));
 		}
 	});
 

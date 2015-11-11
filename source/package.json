@@ -1,6 +1,6 @@
 {
   "name": "bitter-apple",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Collection of utility functions and a gherkin framework for WEB API integration testing based on cucumber.js",
   "main": "bitter-apple.js",
   "readme": "README.md",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "gulp": "^3.8.11",
-    "gulp-cucumber": "0.0.9",
+    "gulp-cucumber": "0.0.14",
     "gulp-jshint": "^1.10.0",
     "jshint-stylish": "^1.0.2"
   }

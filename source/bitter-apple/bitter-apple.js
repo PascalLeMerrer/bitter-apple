@@ -6,6 +6,7 @@ var jsonPath = require('JSONPath');
 var select = require('xpath.js');
 var dom = require('xmldom').DOMParser;
 var fs = require('fs');
+var util = require('util');
 
 var accessToken;
 var globalVariables = {};
@@ -25,7 +26,8 @@ function BitterApple(scheme, domain) {
  * Provides the value that was compared to the expected one
  */
 BitterApple.prototype.getRealValue = function() {
-  return this.realValue;
+  var valueAsString = util.inspect(this.realValue)
+  return '\x1b[31m ' + valueAsString + ' \x1b[0m ' ; // ANSI COLOR codes for red and reset attributes
 };
 
 BitterApple.prototype.addRequestHeader = function(name, value) {
