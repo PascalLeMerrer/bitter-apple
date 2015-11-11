@@ -246,10 +246,27 @@ GIVEN:
   I set (.*) header to global variable (.*)
 
 WHEN:
-	I GET $resource
-	I POST to $resource
-	I PUT $resource
-	I DELETE $resource
+I GET $resource
+I POST to $resource
+I PUT $resource
+I PATCH $resource
+I DELETE $resource
+I POST to $resource with body
+"""
+...
+"""
+I PUT $resource with body
+"""
+...
+"""
+I PATCH $resource with body
+"""
+...
+"""
+I DELETE $resource with body
+"""
+...
+"""
 
 THEN:
 	response header (.*) should exist
@@ -272,6 +289,9 @@ THEN:
 	I store the value of response header (.*) as (.*) in global scope
 	I store the value of body path (.*) as (.*) in global scope
   the JSON should be
+  """
+  ...
+  """
 ```
 
 The simplest way to adopt these expressions is to create a symlink from node_modules/bitterapple/bitterapple-gherkin.js to features/step_definitions/bitterapple-gherkin.js
