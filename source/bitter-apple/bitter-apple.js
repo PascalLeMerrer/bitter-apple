@@ -285,22 +285,23 @@ var replaceVariables = function(resource, scenarioVariables) {
  * with their value in scope if it exists
  * Returns the modified string
  * The variable identifiers must be delimited with backticks
- * offset defines the index of the char from which the varaibles are to be searched
+ * offset defines the index of the char from which the variables are to be searched
  * It's optional.
  */
 var replaceScopeVariables = function(resource, scope, offset) {
   if (offset === undefined) {
     offset = 0;
   }
-  var startIndex = resource.indexOf("`", offset);
+  var startIndex = resource.indexOf('`', offset);
   if (startIndex >= 0) {
-    var endIndex = resource.indexOf("`", startIndex + 1);
+    var endIndex = resource.indexOf('`', startIndex + 1);
     if (endIndex >= startIndex) {
       var variableName = resource.substr(startIndex + 1, endIndex - startIndex - 1);
       if (scope.hasOwnProperty(variableName)) {
         var variableValue = scope[variableName];
         resource = resource.substr(0, startIndex) + variableValue + resource.substr(endIndex + 1);
-      }
+        endIndex = startIndex + variableValue.length;
+      } 
       resource = replaceScopeVariables(resource, scope, endIndex + 1);
     }
   }

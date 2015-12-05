@@ -166,18 +166,48 @@ Feature:
 		Then value of global variable value2 should be `UNKNOWN_VARIABLE`
 
 	Scenario: using global variable in request path
-		When I GET /get?foo=bar
-		Then I store the value of body path $.args.foo as value1 in global scope
-		When I GET /get?fizz=`value1`
-		Then I store the value of body path $.args.fizz as value2 in global scope
-		Then value of global variable value2 should be bar
+		When I GET /get?arg1=foo&arg2=bar
+		Then I store the value of body path $.args.arg1 as value1 in global scope
+		Then I store the value of body path $.args.arg2 as value2 in global scope
+		When I GET /get?arg1=`value1`&arg2=`value2`
+		Then I store the value of body path $.args.arg1 as value11 in global scope
+		Then I store the value of body path $.args.arg2 as value12 in global scope
+		Then value of global variable value11 should be foo
+		Then value of global variable value12 should be bar
+
+
+	Scenario: using global variable in request path
+		When I GET /get?arg1=foo&arg2=bar
+		Then I store the value of body path $.args.arg1 as value11 in global scope
+		Then I store the value of body path $.args.arg2 as value21 in global scope
+		When I GET /get?arg3=`value11`&arg4=`value21`
+		Then I store the value of body path $.args.arg3 as value12 in global scope
+		Then I store the value of body path $.args.arg4 as value22 in global scope
+		Then value of global variable value12 should be foo
+		Then value of global variable value22 should be bar
+
 
 	Scenario: using scenario variable in request path
-		When I GET /get?foo=bar
-		Then I store the value of body path $.args.foo as value3 in scenario scope
-		When I GET /get?fizz=`value3`
-		Then I store the value of body path $.args.fizz as value4 in scenario scope
-		Then value of scenario variable value4 should be bar
+		When I GET /get?arg1=foo&arg2=bar
+		Then I store the value of body path $.args.arg1 as value3 in scenario scope
+		Then I store the value of body path $.args.arg2 as value4 in scenario scope
+		When I GET /get?arg3=`value3`&arg4=`value4`
+		Then I store the value of body path $.args.arg3 as value31 in scenario scope
+		Then I store the value of body path $.args.arg4 as value41 in scenario scope
+		Then value of scenario variable value31 should be foo
+		Then value of scenario variable value41 should be bar
+
+
+	Scenario: using scenario variable with long name in request path
+		When I GET /get?arg1=foo&arg2=bar
+		Then I store the value of body path $.args.arg1 as aValueWithAVeryLongName1 in scenario scope
+		Then I store the value of body path $.args.arg2 as aValueWithAVeryLongName2 in scenario scope
+		When I GET /get?arg3=`aValueWithAVeryLongName1`&arg4=`aValueWithAVeryLongName2`
+		Then I store the value of body path $.args.arg3 as value31 in scenario scope
+		Then I store the value of body path $.args.arg4 as value41 in scenario scope
+		Then value of scenario variable value31 should be foo
+		Then value of scenario variable value41 should be bar
+
 
 	Scenario: using scenario variable and global variables in request path
 		When I GET /get?arg1=foo&arg2=bar
