@@ -213,9 +213,9 @@ Feature:
 		When I GET /get?arg1=foo&arg2=bar
 		Then I store the value of body path $.args.arg1 as value5 in scenario scope
 		Then I store the value of body path $.args.arg2 as value6 in global scope
-		When I GET /get?arg1=`value5`&arg2=`value6`
-		Then I store the value of body path $.args.arg1 as value7 in scenario scope
-		Then I store the value of body path $.args.arg2 as value8 in global scope
+		When I GET /get?arg3=`value5`&arg4=`value6`
+		Then I store the value of body path $.args.arg3 as value7 in scenario scope
+		Then I store the value of body path $.args.arg4 as value8 in global scope
 		Then value of scenario variable value7 should be foo
 		Then value of global variable value8 should be bar
 
@@ -224,12 +224,14 @@ Feature:
 		When I POST to /post
 		Then the JSON should be
 		"""
-		{
-			"lastname": "Doe",
-			"firstnames": ["John", "Robert"],
-			"foo": {
-					"bar": true,
-					"age": 30
-				}
-	  }
+		{ "json":
+			{
+				"lastname": "Doe",
+				"firstnames": ["John", "Robert"],
+				"foo": {
+						"bar": true,
+						"age": 30
+					}
+		  	}
+		}
 		"""
