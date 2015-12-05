@@ -219,8 +219,27 @@ Feature:
 		Then value of scenario variable value7 should be foo
 		Then value of global variable value8 should be bar
 
+
 	Scenario: comparing response body to JSON
 		Given I set body to { "firstnames": ["John", "Robert"], "lastname": "Doe", "foo": { "bar": true, "age": 30 }}
+		When I POST to /post
+		Then the JSON should be
+		"""
+		{ "json":
+			{
+				"lastname": "Doe",
+				"firstnames": ["John", "Robert"],
+				"foo": {
+						"bar": true,
+						"age": 30
+					}
+		  	}
+		}
+		"""
+
+
+	Scenario: extra field in response should not break comparison of response body to JSON
+		Given I set body to { "firstnames": ["John", "Robert"], "lastname": "Doe", "foo": { "bar": true, "age": 30, "city": "Orlando"}, "hobbies": ["skydiving"]}
 		When I POST to /post
 		Then the JSON should be
 		"""

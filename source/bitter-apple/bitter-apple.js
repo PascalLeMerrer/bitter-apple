@@ -362,7 +362,7 @@ var areEqual = function(real, expected) {
     if (typeof(expected[property]) !== "object") return false;
     // Numbers, Strings, Functions, Booleans must be strictly equal
 
-    if (!areEqual(expected[property], real[property])) return false;
+    if (!areEqual(real[property], expected[property])) return false;
     // Objects and Arrays must be tested recursively
   }
   return true;
