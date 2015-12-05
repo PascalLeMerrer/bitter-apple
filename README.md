@@ -13,16 +13,16 @@ It provides a gherkin framework and a collection of utility functions to make AP
 [Cucumber.js](https://github.com/cucumber/cucumber-js) is JavaScript & Node.js implementation of Behaviour Driven Development test framework - [Cucumber](http://cukes.info/). Cucumber.js is using [Gherkin](http://cukes.info/gherkin.html) language for describing the test scenarios in [BDD](http://en.wikipedia.org/wiki/Behavior-driven_development) manner.  
 
 
-**BitterApple** is a fork of [Apickli](https://github.com/apickli/apickli),
-that does not seem to be maintained anymore.
+**BitterApple** started as a fork of [Apickli](https://github.com/apickli/apickli).
 
 It adds the following features to Apickli:
-- display of the real value when a test failed
+- display of the real value when a test fails
 - full JSON comparison
 - a clearer way to describe the expected JSON response
 - setting request header to a global variable value
 - using scenario and/or global variables in requests
 - testing global variable value
+- body of POST/PATCH/PUT/DELETE requests may be  multiline strings
 
 ## How to start - a simple tutorial
 
@@ -253,19 +253,19 @@ I PATCH $resource
 I DELETE $resource
 I POST to $resource with body
 """
-...
+(.*)
 """
 I PUT $resource with body
 """
-...
+(.*)
 """
 I PATCH $resource with body
 """
-...
+(.*)
 """
 I DELETE $resource with body
 """
-...
+(.*)
 """
 
 THEN:
@@ -290,7 +290,7 @@ THEN:
 	I store the value of body path (.*) as (.*) in global scope
   the JSON should be
   """
-  ...
+  (.*)
   """
 ```
 
