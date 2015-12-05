@@ -34,6 +34,14 @@ BitterApple.prototype.addRequestHeader = function(name, value) {
   this.headers[name] = value;
 };
 
+BitterApple.prototype.setScenarioVariable = function(name, value) {
+  this.scenarioVariables[name] = value;
+};
+
+BitterApple.prototype.setGlobalVariable = function(name, value) {
+  globalVariables[name] = value;
+};
+
 BitterApple.prototype.addRequestHeaderFromScenarioVariable = function(name, variable) {
   this.headers[name] = this.scenarioVariables[variable];
 };

@@ -235,6 +235,16 @@ module.exports = function() {
 		callback();
 	});
 
+	this.Then(/^I set global variable (.*) to (.*)$/, function(variableName, value, callback) {
+		this.bitterapple.setGlobalVariable(variableName, value);
+		callback();
+	});
+
+	this.Then(/^I set scenario variable (.*) to (.*)$/, function(variableName, value, callback) {
+		this.bitterapple.setScenarioVariable(variableName, value);
+		callback();
+	});
+
 	this.Then(/^I store the value of response header(.*) as (.*) in global scope$/, function(headerName, variableName, callback) {
 		this.bitterapple.storeValueOfHeaderInGlobalScope(headerName, variableName);
 		callback();

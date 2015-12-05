@@ -166,6 +166,16 @@ Feature:
 		Then result should be 1
 
 
+	Scenario: setting global variable
+		When I set global variable foo1 to bar1
+		Then value of global variable foo1 should be bar1
+
+
+	Scenario: setting scenario variable
+		When I set scenario variable foo2 to bar2
+		Then value of scenario variable foo2 should be bar2
+
+
 	Scenario: setting header value as variable
 		When I GET /get
 		Then I store the value of response header Server as agent in scenario scope
