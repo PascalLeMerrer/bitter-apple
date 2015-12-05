@@ -182,6 +182,7 @@ BitterApple.prototype.assertHeaderValue = function(header, expression) {
 };
 
 BitterApple.prototype.assertPathInResponseBodyMatchesExpression = function(path, regexp) {
+  regexp = replaceVariables(regexp, this.scenarioVariables);
   var regExpObject = new RegExp(regexp);
   this.realValue = this.getResponseObject().body;
   try {
@@ -199,6 +200,7 @@ BitterApple.prototype.assertResponseBodyIsJSON = function(expression) {
 };
 
 BitterApple.prototype.assertResponseBodyContainsExpression = function(expression) {
+  expression = replaceVariables(expression, this.scenarioVariables);
   var regex = new RegExp(expression);
   this.realValue = this.getResponseObject().body;
   return (regex.test(this.realValue));

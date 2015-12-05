@@ -238,6 +238,27 @@ Feature:
 		Then value of global variable value8 should be bar
 
 
+	Scenario: using variables in json body path
+		When I GET /get?arg1=foo&arg2=bar
+		And I store the value of body path $.args.arg1 as value71 in scenario scope
+		And I store the value of body path $.args.arg2 as value72 in global scope
+		When I GET /get?arg1=`value71`&arg2=`value72`
+		Then response body path $.args.arg1 should be `value71`
+		And response body path $.args.arg2 should be `value72`
+		But response body path $.args.arg1 should not be `foo`
+		And response body path $.args.arg2 should not be `foo`
+
+
+	Scenario: using variables in 'json body should contain'
+		When I GET /get?arg1=foo&arg2=bar
+		And I store the value of body path $.args.arg1 as value81 in scenario scope
+		And I store the value of body path $.args.arg2 as value82 in global scope
+		When I GET /get?arg1=`value81`&arg2=`value82`
+		Then response body should contain `value81`
+		And response body should contain `value82`
+		But response body should not contain `foo`
+
+
 	Scenario: comparing response body to JSON
 		Given I set body to { "firstnames": ["John", "Robert"], "lastname": "Doe", "foo": { "bar": true, "age": 30 }}
 		When I POST to /post
