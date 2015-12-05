@@ -55,7 +55,7 @@ BitterApple.prototype.getResponseObject = function() {
 };
 
 BitterApple.prototype.setRequestBody = function(body) {
-  this.requestBody = body;
+  this.requestBody = replaceVariables(body, this.scenarioVariables);
 };
 
 BitterApple.prototype.pipeFileContentsToRequestBody = function(file, callback) {
