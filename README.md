@@ -10,7 +10,7 @@ It provides a gherkin framework and a collection of utility functions to make AP
 
 **BitterApple** is also available as an [NPM package](https://www.npmjs.com/package/bitterapple).
 
-[Cucumber.js](https://github.com/cucumber/cucumber-js) is JavaScript & Node.js implementation of Behaviour Driven Development test framework - [Cucumber](http://cukes.info/). Cucumber.js is using [Gherkin](http://cukes.info/gherkin.html) language for describing the test scenarios in [BDD](http://en.wikipedia.org/wiki/Behavior-driven_development) manner.  
+[Cucumber.js](https://github.com/cucumber/cucumber-js) is JavaScript & Node.js implementation of Behaviour Driven Development test framework - [Cucumber](http://cukes.info/). Cucumber.js is using [Gherkin](http://cukes.info/gherkin.html) language for describing the test scenarios in [BDD](http://en.wikipedia.org/wiki/Behavior-driven_development) manner.
 
 
 **BitterApple** started as a fork of [Apickli](https://github.com/apickli/apickli).
@@ -20,7 +20,7 @@ It adds the following features to Apickli:
 - full JSON comparison
 - a clearer way to describe the expected JSON response
 - setting request header to a global variable value
-- using scenario and/or global variables in requests
+- using scenario and/or global variables in requests URL, body and/or expected response
 - testing global variable value
 - body of POST/PATCH/PUT/DELETE requests may be  multiline strings
 

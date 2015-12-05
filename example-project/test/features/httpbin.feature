@@ -306,6 +306,26 @@ Feature:
 		"""
 
 
+	Scenario: using variables in JSON response
+		Given I set scenario variable lastname to Kennedy
+		And I set global variable age to 45
+		And I set body to { "firstnames": ["John", "Robert"], "lastname": "Kennedy", "foo": { "bar": true, "age": 45 }}
+		When I POST to /post
+		Then the JSON should be
+		"""
+		{ "json":
+			{
+				"lastname": "`lastname`",
+				"firstnames": ["John", "Robert"],
+				"foo": {
+						"bar": true,
+						"age": `age`
+					}
+		  	}
+		}
+		"""
+
+
 	Scenario: extra field in response should not break comparison of response body to JSON
 		Given I set body to { "firstnames": ["John", "Robert"], "lastname": "Doe", "foo": { "bar": true, "age": 30, "city": "Orlando"}, "hobbies": ["skydiving"]}
 		When I POST to /post

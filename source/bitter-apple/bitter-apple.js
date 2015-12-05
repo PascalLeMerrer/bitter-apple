@@ -202,6 +202,7 @@ BitterApple.prototype.assertPathInResponseBodyMatchesExpression = function(path,
 };
 
 BitterApple.prototype.assertResponseBodyIsJSON = function(expression) {
+  expression = replaceVariables(expression, this.scenarioVariables);
   var real = JSON.parse(this.getResponseObject().body);
   this.realValue = JSON.stringify(real, null, 2);
   return areEqual(real, JSON.parse(expression));
