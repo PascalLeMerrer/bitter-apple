@@ -91,6 +91,18 @@ Feature:
 		Then response body should be valid json
 
 
+	Scenario: Response body content type assertions (array)
+		When I set body to ["John", "Robert"]
+		When I POST to /post
+		Then response body at path $.json should be a json array
+
+
+	Scenario: Response body content length assertions (array)
+		When I set body to ["John", "Robert"]
+		When I POST to /post
+		Then response body at path $.json should be an array of length 2
+
+
 	Scenario: Checking headers in response
 		When I GET /xml
 		Then response header server should exist

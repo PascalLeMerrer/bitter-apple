@@ -26,7 +26,7 @@ function BitterApple(scheme, domain) {
  * Provides the value that was compared to the expected one
  */
 BitterApple.prototype.getRealValue = function() {
-  var valueAsString = util.inspect(this.realValue)
+  var valueAsString = util.inspect(this.realValue);
   return '\x1b[31m ' + valueAsString + ' \x1b[0m ' ; // ANSI COLOR codes for red and reset attributes
 };
 
@@ -218,6 +218,17 @@ BitterApple.prototype.assertResponseBodyContainsExpression = function(expression
 BitterApple.prototype.assertResponseBodyContentType = function(contentType) {
   this.realValue = this.getResponseObject().body;
   return (getContentType(this.realValue) === contentType);
+};
+
+BitterApple.prototype.assertResponseBodyIsArray = function(path) {
+  this.realValue = this.getResponseObject().body;
+  return Array.isArray(evaluatePath(path, this.realValue)[0]);
+};
+
+BitterApple.prototype.assertResponseBodyIsArrayOfLength = function(path, value) {
+  this.realValue = this.getResponseObject().body;
+  var evaluatedValue = evaluatePath(path, this.realValue)[0];
+  return Array.isArray(evaluatedValue) && evaluatedValue.length === 2;
 };
 
 BitterApple.prototype.evaluatePathInResponseBody = function(path) {

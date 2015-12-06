@@ -145,6 +145,22 @@ module.exports = function() {
 		}
 	});
 
+	this.Then(/^response body at path (.*) should be a json array$/, function(path, callback) {
+		if (this.bitterapple.assertResponseBodyIsArray(path)) {
+			callback();
+		} else {
+			callback(new Error('response body is ' + this.bitterapple.getRealValue()));
+		}
+	});
+
+	this.Then(/^response body at path (.*) should be an array of length (\d+)$/, function(path, value, callback) {
+		if (this.bitterapple.assertResponseBodyIsArrayOfLength(path, value)) {
+			callback();
+		} else {
+			callback(new Error('response body is ' + this.bitterapple.getRealValue()));
+		}
+	});
+
 	this.Then(/^response code should be (\d+)$/, function(responseCode, callback) {
 		if (this.bitterapple.assertResponseCode(responseCode)) {
 			callback();
