@@ -302,6 +302,8 @@ The simplest way to adopt these expressions is to create a symlink from node_mod
 $ ln -s node_modules/bitterapple/bitterapple-gherkin.js features/step_definitions/bitterapple-gherkin.js
 ```
 
+If using Windows, follow this guide to create a symlink: [How-To Geek Guide](http://www.howtogeek.com/howto/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/).
+
 ## Contributing
 
 If you have any comments or suggestions, feel free to raise [an issue](https://github.com/bitterapple/bitterapple/issues) or fork the project and issue a pull request with suggested improvements.
