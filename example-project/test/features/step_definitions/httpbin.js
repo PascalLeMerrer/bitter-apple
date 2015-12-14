@@ -5,7 +5,7 @@ var bitterapple = require('bitterapple');
 
 module.exports = function() {
 	// cleanup before every scenario
-	this.Before(function(callback) {
+	this.Before(function(scenario, callback) {
 		this.bitterapple = new bitterapple.BitterApple('http', 'httpbin.org');
 		callback();
 	});
