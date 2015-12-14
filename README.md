@@ -57,12 +57,12 @@ This can be an example package.json file for our project:
 
 ```json
 {
-	"name": "myapi-test",
-	"version": "1.0.0",
-	"description": "Integration testing for myapi v1",
-	"dependencies": {
-		"bitterapple": "latest"
-	}
+  "name": "myapi-test",
+  "version": "1.0.0",
+  "description": "Integration testing for myapi v1",
+  "dependencies": {
+    "bitterapple": "latest"
+  }
 }
 ```
 
@@ -80,13 +80,13 @@ Let's start with the scenario file called *myapi.feature*. Full scenario definit
 
 ```
 Feature:
-	Httpbin.org exposes various resources for HTTP request testing
-	As Httpbin client I want to verify that all API resources are working as they should
+  Httpbin.org exposes various resources for HTTP request testing
+  As Httpbin client I want to verify that all API resources are working as they should
 
-	Scenario: Setting headers in GET request
-		Given I set User-Agent header to bitterapple
-		When I GET /get
-		Then response body path $.headers.User-Agent should be bitterapple
+  Scenario: Setting headers in GET request
+    Given I set User-Agent header to bitterapple
+    When I GET /get
+    Then response body path $.headers.User-Agent should be bitterapple
 ```
 
 #### 5. Get bitterapple-gherkin steps
@@ -104,11 +104,11 @@ Now we need a step definition file specific for this project, let's call it *mya
 var bitterapple = require('bitterapple');
 
 module.exports = function() {
-	// cleanup before every scenario
-	this.Before(function(callback) {
-		this.bitterapple = new bitterapple.BitterApple('http', 'httpbin.org');
-		callback();
-	});
+  // cleanup before every scenario
+  this.Before(function(callback) {
+    this.bitterapple = new bitterapple.BitterApple('http', 'httpbin.org');
+    callback();
+  });
 };
 ```
 
@@ -133,31 +133,31 @@ You can also use [Grunt](http://gruntjs.com/) task runner to run the tests.
 'use strict';
 
 module.exports = function(grunt) {
-	grunt.initConfig({
-		cucumberjs: {
-			src: 'features',
-			options: {
-				format: 'pretty',
-				steps: 'features/step_definitions'
-			}
-		}
-	});
+  grunt.initConfig({
+    cucumberjs: {
+      src: 'features',
+      options: {
+        format: 'pretty',
+        steps: 'features/step_definitions'
+      }
+    }
+  });
 
-	grunt.loadNpmTasks('grunt-cucumber');
-	grunt.registerTask('tests', ['cucumberjs']);
+  grunt.loadNpmTasks('grunt-cucumber');
+  grunt.registerTask('tests', ['cucumberjs']);
 }
 ```
 
 ### 2. Add grunt and grunt-cucumber dependencies to package.json:
 
 ```json
-	...
-	"dependencies": {
-		"bitterapple": "latest",
-		"grunt": "latest",
-		"grunt-cucumber": "latest"
-	}
-	...
+  ...
+  "dependencies": {
+    "bitterapple": "latest",
+    "grunt": "latest",
+    "grunt-cucumber": "latest"
+  }
+  ...
 ```
 
 ### 3. Install the new dependencies:
@@ -199,18 +199,18 @@ var cucumber = require('gulp-cucumber');
 
 gulp.task('test', function() {
     return gulp.src('features/*')
-			.pipe(cucumber({
-				'steps': 'features/step_definitions/*.js',
-				'format': 'pretty'
-			}));
+      .pipe(cucumber({
+        'steps': 'features/step_definitions/*.js',
+        'format': 'pretty'
+      }));
 });
 ```
 ### 2. Add gulp and gulp-cucumber dependencies to package.json:
 
 ```json
 ...
-	"gulp": "latest",
-	"gulp-cucumber": "latest"
+  "gulp": "latest",
+  "gulp-cucumber": "latest"
 ...
 ```
 ### 3. Install local dependencies
@@ -235,64 +235,66 @@ $ gulp test
 ## Gherkin Expressions
 The following gherkin expressions are implemented in bitterapple source code [source/bitterapple/bitterapple-gherkin.js](source/bitterapple/bitterapple-gherkin.js):
 
-```
-GIVEN:
-	I set (.*) header to (.*)
-	I set body to (.*)
-	I pipe contents of file (.*) to body
-	I have basic authentication credentials (.*) and (.*)
-	I set bearer token
-  I set (.*) header to scenario variable (.*)
-  I set (.*) header to global variable (.*)
 
-WHEN:
-I GET $resource
-I POST to $resource
-I PUT $resource
-I PATCH $resource
-I DELETE $resource
-I POST to $resource with body
-"""
-(.*)
-"""
-I PUT $resource with body
-"""
-(.*)
-"""
-I PATCH $resource with body
-"""
-(.*)
-"""
-I DELETE $resource with body
-"""
-(.*)
-"""
+    GIVEN:
+      I set (.*) header to (.*)
+      I set body to (.*)
+      I pipe contents of file (.*) to body
+      I have basic authentication credentials (.*) and (.*)
+      I set bearer token
+      I set (.*) header to scenario variable (.*)
+      I set (.*) header to global variable (.*)
 
-THEN:
-	response header (.*) should exist
-	response header (.*) should not exist
-	response body should be valid (xml|json)
-	response code should be (\d+)
-	response code should not be (\d+)
-	response header (.*) should be (.*)
-	response header (.*) should not be (.*)
-	response body should contain (.*)
-	response body should not contain (.*)
-	response body path (.*) should be (.*)
-	response body path (.*) should not be (.*)
-	I store the value of body path (.*) as access token
-  I store the value of header (.*) as access token
-	I store the value of response header (.*) as (.*) in scenario scope
-	I store the value of body path (.*) as (.*) in scenario scope
-	value of scenario variable (.*) should be (.*)
-  value of global variable (.*) should be (.*)
-	I store the value of response header (.*) as (.*) in global scope
-	I store the value of body path (.*) as (.*) in global scope
-  the JSON should be
-  """
-  (.*)
-  """
-```
+    WHEN:
+      I GET $resource
+      I POST to $resource
+      I PUT $resource
+      I PATCH $resource
+      I DELETE $resource
+      I POST to $resource with body
+      """
+      (.*)
+      """
+      I PUT $resource with body
+      """
+      (.*)
+      """
+      I PATCH $resource with body
+      """
+      (.*)
+      """
+      I DELETE $resource with body
+      """
+      (.*)
+      """    
+
+    THEN:
+      response header (.*) should exist
+      response header (.*) should not exist
+      response body should be valid (xml|json)
+      response code should be (\d+)
+      response code should not be (\d+)
+      response header (.*) should be (.*)
+      response header (.*) should not be (.*)
+      response body should contain (.*)
+      response body should not contain (.*)
+      response body at path (.*) should be a json array
+      response body at path (.*) should be an array of length (\d+)
+      response body path (.*) should be (.*)
+      response body path (.*) should not be (.*)
+      I store the value of body path (.*) as access token
+      I store the value of header (.*) as access token
+      I store the value of response header (.*) as (.*) in scenario scope
+      I store the value of body path (.*) as (.*) in scenario scope
+      value of scenario variable (.*) should be (.*)
+      value of global variable (.*) should be (.*)
+      I store the value of response header (.*) as (.*) in global scope
+      I store the value of body path (.*) as (.*) in global scope
+      the JSON should be
+      """
+      (.*)
+      """
+
 
 The simplest way to adopt these expressions is to create a symlink from node_modules/bitterapple/bitterapple-gherkin.js to features/step_definitions/bitterapple-gherkin.js
 
