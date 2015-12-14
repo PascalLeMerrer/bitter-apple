@@ -75,7 +75,8 @@ BitterApple.prototype.get = function(resource, callback) {
   var self = this;
   request.get({
       url: this.domain + resource,
-      headers: this.headers
+      headers: this.headers,
+      followRedirect: false
     },
     function(error, response) {
       if (error) {
@@ -95,6 +96,7 @@ BitterApple.prototype.post = function(resource, callback) {
       url: this.domain + resource,
       headers: this.headers,
       body: this.requestBody,
+      followRedirect: false,
       method: 'POST'
     },
     function(error, response) {
@@ -113,6 +115,7 @@ BitterApple.prototype.put = function(resource, callback) {
   request({
       url: this.domain + resource,
       headers: this.headers,
+      followRedirect: false,
       body: this.requestBody,
       method: 'PUT'
     },
@@ -132,6 +135,7 @@ BitterApple.prototype.delete = function(resource, callback) {
   request({
       url: this.domain + resource,
       headers: this.headers,
+      followRedirect: false,
       body: this.requestBody,
       method: 'DELETE'
     },
@@ -151,6 +155,7 @@ BitterApple.prototype.patch = function(resource, callback) {
   request({
       url: this.domain + resource,
       headers: this.headers,
+      followRedirect: false,
       body: this.requestBody,
       method: 'PATCH'
     },
