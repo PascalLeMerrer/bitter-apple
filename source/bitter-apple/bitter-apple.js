@@ -2,7 +2,7 @@
 'use strict';
 
 var request = require('request');
-var jsonPath = require('JSONPath');
+var jsonPath = require('jsonpath-plus');
 var select = require('xpath.js');
 var dom = require('xmldom').DOMParser;
 var fs = require('fs');
@@ -222,12 +222,12 @@ BitterApple.prototype.assertResponseBodyContentType = function(contentType) {
 
 BitterApple.prototype.assertResponseBodyIsArray = function(path) {
   this.realValue = this.getResponseObject().body;
-  return Array.isArray(evaluatePath(path, this.realValue)[0]);
+  return Array.isArray(evaluatePath(path, this.realValue));
 };
 
 BitterApple.prototype.assertResponseBodyIsArrayOfLength = function(path, value) {
   this.realValue = this.getResponseObject().body;
-  var evaluatedValue = evaluatePath(path, this.realValue)[0];
+  var evaluatedValue = evaluatePath(path, this.realValue);
   return Array.isArray(evaluatedValue) && evaluatedValue.length === 2;
 };
 
@@ -350,7 +350,7 @@ var evaluatePath = function(path, content) {
   switch (contentType) {
     case 'json':
       var contentJson = JSON.parse(content);
-      return jsonPath.eval(contentJson, path);
+      return jsonPath({ flatten: true, json: contentJson, path: path });
     case 'xml':
       var xmlDocument = new dom().parseFromString(content);
       var node = select(xmlDocument, path)[0];
