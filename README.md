@@ -123,6 +123,9 @@ $ cucumber-js features/httpbin.feature
 3 steps (3 passed)
 ```
 
+## Step timeout
+Cucumber.js default step timeout is 5000ms. Follow [this guide](https://github.com/cucumber/cucumber-js#timeouts) to change it for your steps.
+
 ## Grunt integration
 
 You can also use [Grunt](http://gruntjs.com/) task runner to run the tests.
