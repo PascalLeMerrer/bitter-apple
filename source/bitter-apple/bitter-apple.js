@@ -70,7 +70,7 @@ BitterApple.prototype.pipeFileContentsToRequestBody = function(file, callback) {
   });
 };
 
-BitterApple.prototype.get = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.get = function(resource, callback) {
   resource = replaceVariables(resource, this.scenarioVariables);
   var self = this;
   request.get({
@@ -88,7 +88,7 @@ BitterApple.prototype.get = function(resource, callback) { // callback(error, re
 
 };
 
-BitterApple.prototype.post = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.post = function(resource, callback) {
   resource = replaceVariables(resource, this.scenarioVariables);
   var self = this;
   request({
@@ -107,7 +107,7 @@ BitterApple.prototype.post = function(resource, callback) { // callback(error, r
     });
 };
 
-BitterApple.prototype.put = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.put = function(resource, callback) {
   resource = replaceVariables(resource, this.scenarioVariables);
   var self = this;
   request({
@@ -126,7 +126,7 @@ BitterApple.prototype.put = function(resource, callback) { // callback(error, re
     });
 };
 
-BitterApple.prototype.delete = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.delete = function(resource, callback) {
   resource = replaceVariables(resource, this.scenarioVariables);
   var self = this;
   request({
@@ -145,7 +145,7 @@ BitterApple.prototype.delete = function(resource, callback) { // callback(error,
     });
 };
 
-BitterApple.prototype.patch = function(resource, callback) { // callback(error, response)
+BitterApple.prototype.patch = function(resource, callback) {
   resource = replaceVariables(resource, this.scenarioVariables);
   var self = this;
   request({
