@@ -233,7 +233,7 @@ BitterApple.prototype.assertResponseBodyIsArray = function(path) {
 BitterApple.prototype.assertResponseBodyIsArrayOfLength = function(path, value) {
   this.realValue = this.getResponseObject().body;
   var evaluatedValue = evaluatePath(path, this.realValue);
-  return Array.isArray(evaluatedValue) && evaluatedValue.length === 2;
+  return Array.isArray(evaluatedValue) && evaluatedValue.length == value;
 };
 
 BitterApple.prototype.evaluatePathInResponseBody = function(path) {
