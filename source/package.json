@@ -20,15 +20,17 @@
     }
   ],
   "dependencies": {
-    "request": "^2.55.0",
-    "xmldom": "^0.1.19",
-    "xpath.js": "^1.0.6",
-    "jsonpath-plus": "^0.13.0"
+    "cucumber": "latest",
+    "request": "latest",
+    "xmldom": "latest",
+    "xpath.js": "latest",
+    "jsonpath-plus": "latest"
   },
   "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-cucumber": "0.0.14",
-    "gulp-jshint": "^1.10.0",
-    "jshint-stylish": "^1.0.2"
+    "gulp": "latest",
+    "gulp-cucumber": "latest",
+    "gulp-jshint": "latest",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "latest"
   }
 }
