@@ -188,6 +188,26 @@ Feature:
 		Then value of scenario variable foo2 should be bar2
 
 
+	Scenario: Setting header from scenario variable
+		Given I set scenario variable foo to bitterapple
+		And I set User-Agent header to scenario variable foo
+		When I GET /get
+		Then response body path $.headers.User-Agent should be bitterapple
+
+	Scenario: Setting header from scenario variable including space
+		Given I set scenario variable foo to "bitter apple"
+		And I set User-Agent header to scenario variable foo
+		When I GET /get
+		Then response body path $.headers.User-Agent should be bitter apple
+
+
+	Scenario: Setting header from global variable
+		Given I set global variable foo to bitterapple
+		And I set User-Agent header to global variable foo
+		When I GET /get
+		Then response body path $.headers.User-Agent should be bitterapple
+
+
 	Scenario: setting header value as variable
 		When I GET /get
 		Then I store the value of response header Server as agent in scenario scope
