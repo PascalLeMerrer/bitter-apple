@@ -247,6 +247,8 @@ The following gherkin expressions are implemented in bitterapple source code [so
       I set bearer token
       I set (.*) header to scenario variable (.*)
       I set (.*) header to global variable (.*)
+      I send the cookie (.*)
+      I clear the cookie (.*)
 
     WHEN:
       I GET $resource
@@ -269,7 +271,7 @@ The following gherkin expressions are implemented in bitterapple source code [so
       I DELETE $resource with body
       """
       (.*)
-      """    
+      """
 
     THEN:
       response header (.*) should exist

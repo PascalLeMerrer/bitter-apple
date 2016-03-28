@@ -10,6 +10,7 @@ var util = require('util');
 
 var accessToken;
 var globalVariables = {};
+var cookies = [];
 
 var ATTRIBUTE = 2;
 
@@ -83,11 +84,59 @@ BitterApple.prototype.get = function(resource, callback) {
         return callback(error);
       }
 
-      self.httpResponse = response;
+      processResponse(self, response);
       callback(null, response);
     });
 
 };
+
+/**
+ * Memorizes the server response
+ */
+function processResponse(self, response) {
+    self.httpResponse = response;
+    if(response.headers.hasOwnProperty("set-cookie")) {
+        for (var i = 0; i < response.headers["set-cookie"].length; i++) {
+            parseCookies(response.headers["set-cookie"][i])
+        }
+    }
+}
+
+/**
+ * Decodes a raw cookie and store its value in the cookies global var
+ */
+function parseCookies(rawCookie) {
+    rawCookie && rawCookie.split(';').forEach(function( cookie ) {
+        var parts = cookie.split('=');
+        cookies[parts.shift().trim()] = decodeURI(parts.join('='));
+    });
+}
+
+/**
+ * Adds a received cookie to headers
+ */
+BitterApple.prototype.sendCookie = function(cookieName) {
+    if(!cookies.hasOwnProperty(cookieName)) {
+      return false;
+    }
+    if(!this.headers.hasOwnProperty('Cookie')) {
+        this.headers['Cookie'] = []
+    }
+    this.headers['Cookie'].push(cookieName + '=' + cookies[cookieName] + ';')
+    return true;
+};
+
+BitterApple.prototype.clearCookie = function(cookieName) {
+    var suffix = cookieName + '=';
+    for (var i = 0; i < this.headers['Cookie'].length; i++) {
+        if (this.headers['Cookie'][i].startsWith(suffix)) {
+          this.headers['Cookie'].splice(i, 1)
+          break;
+        }
+    }
+    return true;
+}
+
 
 BitterApple.prototype.post = function(resource, callback) {
   resource = replaceVariables(resource, this.scenarioVariables);
@@ -104,7 +153,7 @@ BitterApple.prototype.post = function(resource, callback) {
         return callback(error);
       }
 
-      self.httpResponse = response;
+      processResponse(self, response);
       callback(null, response);
     });
 };
@@ -124,7 +173,7 @@ BitterApple.prototype.put = function(resource, callback) {
         return callback(error);
       }
 
-      self.httpResponse = response;
+      processResponse(self, response);
       callback(null, response);
     });
 };
@@ -144,7 +193,7 @@ BitterApple.prototype.delete = function(resource, callback) {
         return callback(error);
       }
 
-      self.httpResponse = response;
+      processResponse(self, response);
       callback(null, response);
     });
 };
@@ -164,7 +213,7 @@ BitterApple.prototype.patch = function(resource, callback) {
         return callback(error);
       }
 
-      self.httpResponse = response;
+      processResponse(self, response);
       callback(null, response);
     });
 };
@@ -279,7 +328,7 @@ BitterApple.prototype.storeValueOfHeaderInGlobalScope = function(headerName, var
 };
 
 BitterApple.prototype.storeValueOfResponseBodyPathInGlobalScope = function(path, variableName) {
-  var value = evaluatePath(path, this.getResponseObject().body);
+  var value = evaluatePath(path, this.getResponseObject().body)[0];
   this.setGlobalVariable(variableName, value);
 };
 
@@ -290,6 +339,12 @@ BitterApple.prototype.setGlobalVariable = function(name, value) {
 BitterApple.prototype.getGlobalVariable = function(name) {
   return globalVariables[name];
 };
+
+BitterApple.prototype.evaluatePath = function(path, content){
+  return evaluatePath(path, content);
+};
+
+
 
 exports.BitterApple = BitterApple;
 
@@ -328,7 +383,7 @@ var replaceScopeVariables = function(resource, scope, offset) {
         var variableValue = scope[variableName];
         resource = resource.substr(0, startIndex) + variableValue + resource.substr(endIndex + 1);
         endIndex = startIndex + variableValue.length;
-      } 
+      }
       resource = replaceScopeVariables(resource, scope, endIndex + 1);
     }
   }

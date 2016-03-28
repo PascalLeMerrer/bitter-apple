@@ -1,6 +1,19 @@
 /* jslint node: true */
 'use strict';
 module.exports = function() {
+	this.Given(/^I send the cookie (\S+)$/, function(cookieName, callback) {
+		if(this.bitterapple.sendCookie(cookieName)) {
+			callback();
+		}
+		else {
+			callback(new Error('Cannot send unknown cookie ' + cookieName))
+		}
+	});
+
+	this.Given(/^I clear the cookie (\S+)$/, function(cookieName, callback) {
+		this.bitterapple.clearCookie(cookieName)
+		callback();
+	});
 
 	this.Given(/^I set (.*) header to (\S+)$/, function(headerName, headerValue, callback) {
 		this.bitterapple.addRequestHeader(headerName, headerValue);
