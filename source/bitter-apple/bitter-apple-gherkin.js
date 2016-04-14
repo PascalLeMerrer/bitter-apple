@@ -6,12 +6,12 @@ module.exports = function() {
 			callback();
 		}
 		else {
-			callback(new Error('Cannot send unknown cookie ' + cookieName))
+			callback(new Error('Cannot send unknown cookie ' + cookieName));
 		}
 	});
 
 	this.Given(/^I clear the cookie (\S+)$/, function(cookieName, callback) {
-		this.bitterapple.clearCookie(cookieName)
+		this.bitterapple.clearCookie(cookieName);
 		callback();
 	});
 

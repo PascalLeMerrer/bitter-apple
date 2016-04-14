@@ -97,7 +97,7 @@ function processResponse(self, response) {
     self.httpResponse = response;
     if(response.headers.hasOwnProperty("set-cookie")) {
         for (var i = 0; i < response.headers["set-cookie"].length; i++) {
-            parseCookies(response.headers["set-cookie"][i])
+            parseCookies(response.headers["set-cookie"][i]);
         }
     }
 }
@@ -120,22 +120,22 @@ BitterApple.prototype.sendCookie = function(cookieName) {
       return false;
     }
     if(!this.headers.hasOwnProperty('Cookie')) {
-        this.headers['Cookie'] = []
+        this.headers.Cookie = [];
     }
-    this.headers['Cookie'].push(cookieName + '=' + cookies[cookieName] + ';')
+    this.headers.Cookie.push(cookieName + '=' + cookies[cookieName] + ';');
     return true;
 };
 
 BitterApple.prototype.clearCookie = function(cookieName) {
     var suffix = cookieName + '=';
-    for (var i = 0; i < this.headers['Cookie'].length; i++) {
-        if (this.headers['Cookie'][i].startsWith(suffix)) {
-          this.headers['Cookie'].splice(i, 1)
+    for (var i = 0; i < this.headers.Cookie.length; i++) {
+        if (this.headers.Cookie[i].startsWith(suffix)) {
+          this.headers.Cookie.splice(i, 1);
           break;
         }
     }
     return true;
-}
+};
 
 
 BitterApple.prototype.post = function(resource, callback) {
